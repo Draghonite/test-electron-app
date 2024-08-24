@@ -43,7 +43,7 @@ pipeline {
     stage ("Archive") {
       steps {
         echo "Archiving...built-in agent"
-        sh ''''
+        sh '''
           rm -rf artifacts
           mkdir -p artifacts
         '''
