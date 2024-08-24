@@ -1,7 +1,7 @@
 // const app = require('./app');
 
 describe('', () => {
-  test('should instantiatiate', () => {
+  test('should pass', () => {
     expect(true).toBe(true);
   });
 });
