@@ -28,9 +28,10 @@ pipeline {
           npm install
           npm run make
           rm *.zip
-          tar -cZf test-desktop-app-1.1.0.zip out/make/squirrel.windows/x64/*Setup.exe
+          cd out/make/squirrel.windows/x64/
+          7z a ../../../../test-desktop-app-1.1.0.zip *Setup.exe
         """
-        stash includes: '*.zip', name: 'installer_archive'
+        stash includes: 'desktop-app/*.zip', name: 'installer_archive'
         // clean the workspace
         // sh '''
         //   ls

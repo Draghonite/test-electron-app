@@ -11,10 +11,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force;
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; 
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) -ErrorAction SilentlyContinue;
 
-# Install packages (openjdk11, git and nodejs) via choco and set JAVA_HOME
+# Install packages (openjdk11, git, 7zip and nodejs) via choco and set JAVA_HOME
 choco install -y openjdk11;
 choco install -y git.install --params "'/GitAndUnixToolsOnPath /WindowsTerminal /NoAutoCrlf'";
 choco install -y nodejs.install;
+choco install -y 7zip.install;
 [Environment]::SetEnvironmentVariable("JAVA_HOME", $env:JAVA_HOME + ";C:\Program Files\Eclipse Adoptium\jdk-11.0.24.8-hotspot\bin", "Machine");
 
 # Create the Jenkins user directory and cd into it
