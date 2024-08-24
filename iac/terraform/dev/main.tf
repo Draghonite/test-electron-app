@@ -14,7 +14,7 @@ data "aws_ami" "windows" {
 resource "aws_instance" "windows" {
   ami = data.aws_ami.windows.id
   instance_type = "t2.medium"
-  user_data = templatefile("user_data.ps1", {
+  user_data = templatefile("user-data/user_data.ps1", {
     windows_instance_name = var.windows_instance_name
     jenkins_core_url = var.jenkins_core_url
     jenkins_core_secret = var.jenkins_core_secret
@@ -27,3 +27,7 @@ resource "aws_instance" "windows" {
 
   tags = var.tags
 }
+
+# TODO: create a second aws_instance resouce for the jenkins server
+# ...using user-data/user_data.sh
+# ...may need to make the windows instance dependent on this instance
