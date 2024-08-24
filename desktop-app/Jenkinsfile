@@ -33,7 +33,7 @@ pipeline {
           cd out/make/squirrel.windows/x64/
           7z a ../../../../../${BUILD_ARCHIVE} *Setup.exe
         """
-        stash includes: "'${BUILD_ARCHIVE}'", name: 'installer_archive'
+        stash includes: ${BUILD_ARCHIVE}, name: 'installer_archive'
       }
     }
 
