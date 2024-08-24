@@ -9,6 +9,9 @@ pipeline {
     stage ("Build and Test") {
       steps {
         echo "Building...built-in agent"
+        sh '''
+          echo sh
+        '''
       }
     }
 
