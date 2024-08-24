@@ -44,9 +44,12 @@ pipeline {
     stage ("Archive") {
       steps {
         echo "Archiving...built-in agent"
-        unstash 'artifacts'
+        sh 'mkdir -p artifacts'
+        witthDir('artifacts') {
+          unstash 'artifacts'
+        }
         sh '''
-          ls
+          ls artifacts
         '''
       }
     }
