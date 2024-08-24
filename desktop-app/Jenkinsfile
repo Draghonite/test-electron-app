@@ -10,6 +10,9 @@ pipeline {
       steps {
         echo "Building...built-in agent"
         sh '''
+          cd desktop-app
+          ls
+          npm install
           ls
         '''
       }
