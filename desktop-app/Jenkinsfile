@@ -10,7 +10,7 @@ pipeline {
       steps {
         echo "Building...built-in agent"
         sh '''
-          echo ls
+          ls
         '''
       }
     }
