@@ -6,21 +6,37 @@ pipeline {
   // name: test-electron-app-ci
   // description: 'Builds and packages an Electron application using Windows build agent.'
   stages {
-    stage ("Build and Test") {
+    stage ("Install, Test and Archive") {
       steps {
         echo "Building...built-in agent"
         sh '''
-          cd desktop-app
-          ls
-          npm install
-          ls
+          hostname
         '''
+        dir('desktop-app') {
+          stash 'source'
+        }
+        // sh '''
+        //   cd desktop-app
+        //   npm install
+          
+        // '''
       }
     }
 
-    stage ("Package") {
+    stage ("Build and Package") {
+      agent {
+        label 'windows-agent'
+      }
       steps {
         echo "Packaging...Windows agent"
+        sh '''
+          hostname
+          ls
+        '''
+        unstash 'source'
+        sh '''
+          ls
+        '''
       }
     }
 
