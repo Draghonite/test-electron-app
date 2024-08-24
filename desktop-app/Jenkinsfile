@@ -43,7 +43,10 @@ pipeline {
     stage ("Archive") {
       steps {
         echo "Archiving...built-in agent"
-        sh 'mkdir -p artifacts'
+        sh ''''
+          rm -rf artifacts
+          mkdir -p artifacts
+        '''
         dir('artifacts') {
           unstash 'installer_archive'
         }
@@ -51,6 +54,12 @@ pipeline {
           ls artifacts
         '''
         // TODO: next steps to archive the artifact (e.g. Artifactory)
+        // clean the workspace
+        // sh '''
+        //   ls
+        //   rm -rf .
+        //   ls
+        // '''
       }
     }
 
