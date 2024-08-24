@@ -1,0 +1,17 @@
+{
+  "name": "dev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "plan": "terraform plan -var-file=dev-tf.vars",
+    "deploy": "terraform apply -var-file=dev-tf.vars",
+    "deploy:full": "terraform apply -var-file=dev-tf.vars --auto-approve=true",
+    "destroy": "terraform destroy -var-file=dev-tf.vars",
+    "destroy:full": "terraform destroy -var-file=dev-tf.vars --auto-approve=true",
+    "rebuild:full": "npm run destroy:full && npm run deploy:full"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
