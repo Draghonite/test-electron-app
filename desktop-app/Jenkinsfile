@@ -33,7 +33,7 @@ pipeline {
           npm install
           npm run make
           cd out/make/squirrel.windows/x64/
-          7z ao ../../../../../test-desktop-app-1.1.0.zip *Setup.exe
+          7z a ../../../../../test-desktop-app-1.1.0.zip *Setup.exe
         """
         // TODO: parameterize the archive name -- to be more specific in case no clean-up
         stash includes: '*.zip', name: 'installer_archive'
