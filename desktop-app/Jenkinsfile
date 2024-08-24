@@ -9,35 +9,34 @@ pipeline {
     stage ("Install and Test") {
       steps {
         echo "Building...built-in agent"
-        sh '''
-          hostname
-        '''
         // sh '''
         //   cd desktop-app
         //   npm install
-          
+        //   npm run test
         // '''
       }
     }
 
-    stage ("Build and Package") {
+    stage ("Make") {
       agent {
         label 'windows-agent'
       }
       steps {
         echo "Packaging...Windows agent"
-        sh '''
-          hostname
+        bat '''
           cd desktop-app
           npm install
           npm run make
-          ls
-          cd 
+          rm *.zip
+          tar -cZf test-desktop-app-1.1.0.zip out/make/squirrel.windows/x64/*Setup.exe
         '''
-        dir('desktop-app/out/make/squirrel.windows/x64') {
-          stash 'artifacts'
-        }
-        // TODO: cleanup the agent workspace
+        stash includes: '*.zip', name: 'installer_archive'
+        // clean the workspace
+        // sh '''
+        //   ls
+        //   rm -rf .
+        //   ls
+        // '''
       }
     }
 
@@ -46,17 +45,19 @@ pipeline {
         echo "Archiving...built-in agent"
         sh 'mkdir -p artifacts'
         dir('artifacts') {
-          unstash 'artifacts'
+          unstash 'installer_archive'
         }
         sh '''
           ls artifacts
         '''
+        // TODO: next steps to archive the artifact (e.g. Artifactory)
       }
     }
 
     stage ("Deploy") {
       steps {
         echo "Packaging...built-in agent"
+        // TODO: next steps to deploy -- e.g. trigger a CD pipeline or upload directly to S3
       }
     }
   }
