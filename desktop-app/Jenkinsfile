@@ -9,11 +9,11 @@ pipeline {
     stage ("Install and Test") {
       steps {
         echo "Building...built-in agent"
-        // sh '''
-        //   cd desktop-app
-        //   npm install
-        //   npm run test
-        // '''
+        sh '''
+          cd desktop-app
+          npm install
+          npm run test
+        '''
       }
     }
 
@@ -34,11 +34,11 @@ pipeline {
           stash includes: '*.zip', name: 'installer_archive'
         }
         // clean the workspace
-        // sh '''
-        //   ls
-        //   rm -rf .
-        //   ls
-        // '''
+        sh '''
+          ls
+          rm -rf *
+          ls
+        '''
       }
     }
 
@@ -59,7 +59,7 @@ pipeline {
         // clean the workspace
         // sh '''
         //   ls
-        //   rm -rf .
+        //   rm -rf *
         //   ls
         // '''
       }
