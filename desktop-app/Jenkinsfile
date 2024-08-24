@@ -5,6 +5,10 @@ pipeline {
   // *** Documentation ***
   // name: test-electron-app-ci
   // description: 'Builds and packages an Electron application using Windows build agent.'
+  environment {
+    BUILD = "${currentBuild.number}";
+    // TODO: create the archive name using current build number
+  }
   stages {
     stage ("Install and Test") {
       steps {
@@ -23,45 +27,27 @@ pipeline {
       }
       steps {
         echo "Packaging...Windows agent"
+        // TODO: parameterize the archive name -- in 7z... command
         sh """
           cd desktop-app
           npm install
           npm run make
           cd out/make/squirrel.windows/x64/
-          7z a ../../../../test-desktop-app-1.1.0.zip *Setup.exe
+          7z ao ../../../../../test-desktop-app-1.1.0.zip *Setup.exe
         """
-        dir('desktop-app') {
-          stash includes: '*.zip', name: 'installer_archive'
-        }
-        // clean the workspace
-        sh '''
-          ls
-          rm -rf desktop-app/*
-          ls
-        '''
+        // TODO: parameterize the archive name -- to be more specific in case no clean-up
+        stash includes: '*.zip', name: 'installer_archive'
       }
     }
 
     stage ("Archive") {
       steps {
         echo "Archiving...built-in agent"
+        unstash 'installer_archive'
         sh '''
-          rm -rf artifacts
-          mkdir -p artifacts
-        '''
-        dir('artifacts') {
-          unstash 'installer_archive'
-        }
-        sh '''
-          ls artifacts
+          ls
         '''
         // TODO: next steps to archive the artifact (e.g. Artifactory)
-        // clean the workspace
-        // sh '''
-        //   ls
-        //   rm -rf *
-        //   ls
-        // '''
       }
     }
 
