@@ -12,9 +12,9 @@ pipeline {
         sh '''
           hostname
         '''
-        dir('desktop-app') {
-          stash 'source'
-        }
+        // dir('desktop-app') {
+        //   stash 'source'
+        // }
         // sh '''
         //   cd desktop-app
         //   npm install
@@ -33,10 +33,10 @@ pipeline {
           hostname
           ls
         '''
-        unstash 'source'
-        sh '''
-          ls
-        '''
+        // unstash 'source'
+        // sh '''
+        //   ls
+        // '''
       }
     }
 
