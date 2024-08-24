@@ -36,7 +36,7 @@ pipeline {
         // clean the workspace
         sh '''
           ls
-          rm -rf *
+          rm -rf desktop-app/*
           ls
         '''
       }
