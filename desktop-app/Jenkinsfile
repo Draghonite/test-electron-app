@@ -31,12 +31,15 @@ pipeline {
         echo "Packaging...Windows agent"
         sh '''
           hostname
+          cd desktop-app
+          npm install
           ls
         '''
         // unstash 'source'
         // sh '''
         //   ls
         // '''
+        // TODO: cleanup the agent workspace
       }
     }
 
