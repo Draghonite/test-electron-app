@@ -6,15 +6,12 @@ pipeline {
   // name: test-electron-app-ci
   // description: 'Builds and packages an Electron application using Windows build agent.'
   stages {
-    stage ("Install, Test and Archive") {
+    stage ("Install and Test") {
       steps {
         echo "Building...built-in agent"
         sh '''
           hostname
         '''
-        // dir('desktop-app') {
-        //   stash 'source'
-        // }
         // sh '''
         //   cd desktop-app
         //   npm install
@@ -35,12 +32,22 @@ pipeline {
           npm install
           npm run make
           ls
+          cd 
         '''
-        // unstash 'source'
-        // sh '''
-        //   ls
-        // '''
+        dir('desktop-app/out/make/squirrel.windows/x64') {
+          stash 'artifacts'
+        }
         // TODO: cleanup the agent workspace
+      }
+    }
+
+    stage ("Archive") {
+      steps {
+        echo "Archiving...built-in agent"
+        unstash 'artifacts'
+        sh '''
+          ls
+        '''
       }
     }
 
