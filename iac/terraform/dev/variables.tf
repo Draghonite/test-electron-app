@@ -16,10 +16,6 @@ variable "tags" {
   type = map
 }
 
-variable "windows_instance_name" {
-  type = string
-}
-
 variable "key_pair_name" {
   type = string
 }
@@ -28,7 +24,11 @@ variable "vpc_id" {
   type = string
 }
 
-variable "security_group_ids" {
+variable "windows_instance_name" {
+  type = string
+}
+
+variable "windows_security_group_ids" {
   type = list
 }
 
@@ -42,4 +42,8 @@ variable "jenkins_core_secret" {
 
 variable "jenkins_core_agent" {
   type = string
+}
+
+variable "jenkins_security_group_ids" {
+  type = list
 }

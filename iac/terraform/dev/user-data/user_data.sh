@@ -1,5 +1,5 @@
 # installs git and jenkins
-sudo yum update –y
+sudo yum update -y
 sudo yum install git -y
 sudo yum install nodejs npm -y
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
