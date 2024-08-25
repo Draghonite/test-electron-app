@@ -44,6 +44,7 @@ pipeline {
         sh '''
           ls
         '''
+        archiveArtifacts artifacts: "${INSTALLER_ARCHIVE}"
         // TODO: next steps to archive the artifact (e.g. Artifactory)
       }
     }
